@@ -21,11 +21,12 @@ from utils.plots import plot_one_box, crop_plot
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 from utils.color_recognition import predict
 from database import update_data
+import lpd_model
 
 random.seed(1)
 
 
-def detect(source, file_directory, save_img=False):
+def detect(source, file_directory, lp_directory, save_img=False):
     weights, view_img, save_txt, imgsz, trace = 'yolov7.pt', False, False, 640, True
     save_img = False and not source.endswith(
         '.txt')  # save inference images
@@ -169,8 +170,9 @@ def detect(source, file_directory, save_img=False):
                             filename = save_path[:-4] + '-crop' + str(save_pic_count) + '.png'
                             cv2.imwrite(filename, cropped)
                             save_pic_count+=1
-
-
+                            lppath = lpd_model.run(filename, lp_directory)
+                            print(lppath)
+                            update_data("make", "model", "ฟข1111", color, source+ path.split('/')[-1], lppath, filename)
             # Print time (inference + NMS)
             print(
                 f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
@@ -206,7 +208,7 @@ def detect(source, file_directory, save_img=False):
                         vid_writer = cv2.VideoWriter(
                             save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer.write(im0)
-    update_data("make", "model", "ฟข1111", color, source+"/"+ path.split('/')[-1], "", filename)
+    
     if save_txt or save_img:
         print(f" The image with the result is saved in: {save_path}")
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
@@ -215,6 +217,6 @@ def detect(source, file_directory, save_img=False):
     print(f'Done. ({time.time() - t0:.3f}s)')
     return 
 
-def run (source, file_directory):
+def run (source, file_directory, lp_directory):
     with torch.no_grad():
-        detect(source, file_directory)
+        detect(source, file_directory, lp_directory)

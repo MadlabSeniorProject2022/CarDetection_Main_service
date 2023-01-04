@@ -11,9 +11,35 @@ body {
   border-radius: 100px !important;
 }
 
+.table-button {
+  background-color: black;
+  color: white;
+  border-style: none !important;
+  border-radius: 100px !important;
+}
+
 .white-box {
   background-color: white !important;
   padding: 10px !important;
   border-radius: 20px !important;
   margin-top: 10px;
+  height: 380px;
+  overflow: scroll;
+}
+
+.fix-box {
+  height: 300px !important;
+  overflow: scroll;
+}
+
+.mock-sm {
+  background-color: grey;
+  border-radius: 10px !important;
+  width: 100%;
+  height: 150px;
+  margin-top: 50px;
+}
+
+img {
+  border-radius: 10px !important;
 }

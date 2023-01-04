@@ -24,7 +24,7 @@ from utils.color_recognition import predict
 random.seed(1)
 
 def detect(source, file_directory, save_img=False):
-    weights, view_img, save_txt, imgsz, trace = 'LPD150.pt', False, False, 640, True
+    weights, view_img, save_txt, imgsz, trace = 'lpd100x.pt', False, False, 640, True
     save_img = True and not source.endswith(
         '.txt')  # save inference images
     crop_img = True
@@ -99,7 +99,7 @@ def detect(source, file_directory, save_img=False):
 
         # Apply NMS
         pred = non_max_suppression(
-            pred, 0.75, 0.45, classes=[2, 5, 7], agnostic=False)
+            pred, 0.5, 0.45, classes=[2, 5, 7], agnostic=False)
         t3 = time_synchronized()
 
         # Apply Classifier
@@ -142,9 +142,9 @@ def detect(source, file_directory, save_img=False):
 
                     if crop_img:
                         cropped = crop_plot(xyxy, im0)
-                        print(cropped)
+                        print("cropped")
                         print(cropped.shape)
-                        filename = save_path[:-4] + '.png'
+                        filename = file_directory + save_path[:-4] + '.png'
                         cv2.imwrite(filename, cropped)
                         return filename
 
@@ -153,4 +153,6 @@ def detect(source, file_directory, save_img=False):
 
 def run (source, file_directory):
     with torch.no_grad():
-        return detect(source, file_directory)
+        path = detect(source, file_directory)
+        print(path)
+        return path

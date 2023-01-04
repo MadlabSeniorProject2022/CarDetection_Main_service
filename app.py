@@ -31,13 +31,20 @@ def processing():
         else:
             frameSpliter.imgcap("static/files/og/" + filename, "static/files/frames/" + filename.split(".")[0] + "/" )
         #for img in os.listdir("static/files/frames/" + filename.split(".")[0] + "/"):
-        model.run("static/files/frames/" + filename.split(".")[0] + "/", "static/files/car/" + filename.split(".")[0] + "/")
-        return {"name" : "a"}
+        model.run("static/files/frames/" + filename.split(".")[0] + "/", "static/files/car/" + filename.split(".")[0] + "/", "static/files/license/" + filename.split(".")[0] + "/")
+        return redirect("/", code=302)
+
+@app.route('/show/<id>')
+def show(id):
+    print(db.get_byid(id))
+    return render_template("home.html", table = list(db.get_list_data()), show = db.get_byid(id))
+
 
 @app.route('/')
 def home():
-    print(list(db.get_list_data()))
-    return render_template("home.html", table = list(db.get_list_data()))
-
+    print(db.get_lasted())
+    return render_template("home.html", table = list(db.get_list_data()), show = db.get_lasted())
+def table_event(id):
+    print(id)
 if __name__ == '__main__':
     app.run(debug=True, port=8788)

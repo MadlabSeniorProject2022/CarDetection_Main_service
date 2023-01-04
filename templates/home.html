@@ -13,10 +13,43 @@
     <link href="{{ url_for('static', filename='styles/home.css') }}" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <div class="container">
-      <a href="/upload" ><button class="primary-button"> Upload</button></a>
+    
+      <div class="container">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="container white-box">
+              <img src="{{ url_for('static', filename=(show.path)[6:]) }}" width="100%"/>
+            </div>
+          </div>
+          <div class="col">
+            <div class="container white-box">
+              <div class="row align-items-start">
+                <div class="col">
+                  แบรนด์ : <h3>{{show.make}}</h3>
+                  รุ่น : <h3>{{show.model}}</h3>
+                  ทะเบียน: <h3>{{show.license_num}}</h3>
+                  สี: <h3>{{show.color}}</h3>
+                </div>
+                <div class="col">
+                  <img src="{{ url_for('static', filename=(show.car_path)[6:]) }}" width="100%"/>
+                  {% block content %}
+                  {% if show.lp_path %}
+                  <img src="{{ url_for('static', filename=(show.lp_path)[6:]) }}" width="100%"/>
+                  {% else %}
+                  <div class="mock-sm"></div>
+                  {% endif %}
+                  {% endblock content %}
+                </div>
+              </div>
+             
+            </div>
+          </div>
+      </div>
     </div>
-    <div class="container white-box">
+    <div class="container">
+        <a href="/upload" ><button class="primary-button"> Upload</button></a>
+      </div>
+    <div class="container white-box fix-box">
       <h2>Lasted</h2>
       <table class="table">
         <thead>
@@ -25,15 +58,17 @@
             <th scope="col">รุ่น</th>
             <th scope="col">ทะเบียน</th>
             <th scope="col">สี</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           {% for car in table %}
-          <tr>
+          <tr">
             <td>{{car.make}}</td>
             <td>{{car.model}}</td>
             <td>{{car.license_num}}</td>
             <td>{{car.color}}</td>
+            <td><a href="/show/{{car._id}}" ><button class="table-button">View</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
