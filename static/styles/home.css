@@ -1,0 +1,19 @@
+body {
+  background-color: #cdcdcd;
+}
+
+.primary-button {
+  margin-top: 10px;
+  background-color: black;
+  color: white;
+  border-style: none !important;
+  padding: 10px !important;
+  border-radius: 100px !important;
+}
+
+.white-box {
+  background-color: white !important;
+  padding: 10px !important;
+  border-radius: 20px !important;
+  margin-top: 10px;
+}
