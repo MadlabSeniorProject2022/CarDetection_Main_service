@@ -1,0 +1,87 @@
+{
+  "acv40": {
+    "make": "Toyota",
+    "model": "Camry",
+    "class": "Mid-size"
+  },
+  "acv70": {
+    "make": "Toyota",
+    "model": "Camry",
+    "class": "Mid-size"
+  },
+  "city_jimmy": {
+    "make": "Honda",
+    "model": "City",
+    "class": "Eco"
+  },
+  "city_mavin": {
+    "make": "Honda",
+    "model": "City",
+    "class": "Eco"
+  },
+  "civic_fc": {
+    "make": "Honda",
+    "model": "Civic",
+    "class": "Compact"
+  },
+  "corolla_cross": {
+    "make": "Toyota",
+    "model": "Corolla Cross",
+    "class": "Compact SUV"
+  },
+  "e150": {
+    "make": "Toyota",
+    "model": "Corolla Altis",
+    "class": "Compact"
+  },
+  "e160": {
+    "make": "Toyota",
+    "model": "Corolla Altis",
+    "class": "Compact"
+  },
+  "e160b": {
+    "make": "Toyota",
+    "model": "Corolla Altis",
+    "class": "Compact"
+  },
+  "e170": {
+    "make": "Toyota",
+    "model": "Corolla Altis",
+    "class": "Compact"
+  },
+  "Mazda2": {
+    "make": "Mazda",
+    "model": "Mazda 2",
+    "class": "Eco"
+  },
+  "revo": {
+    "make": "Toyota",
+    "model": "Hilux Revo",
+    "class": "Pickup"
+  },
+  "rt50": {
+    "make": "Isuzu",
+    "model": "D-max",
+    "class": "Pickup"
+  },
+  "swiift_ajp": {
+    "make": "Suzuki",
+    "model": "Swift",
+    "class": "Eco"
+  },
+  "yaris_mama": {
+    "make": "Toyota",
+    "model": "Yaris",
+    "class": "Eco"
+  },
+  "yaris_old": {
+    "make": "Toyota",
+    "model": "Yaris",
+    "class": "Eco"
+  },
+  "unknown": {
+    "make": "Unknown",
+    "model": "Unknown",
+    "class": "Unknown"
+  }
+}

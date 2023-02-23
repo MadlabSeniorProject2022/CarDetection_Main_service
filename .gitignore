@@ -1,0 +1,7 @@
+/runs/*
+/src/*
+/__pycache__/*
+/clips/*
+*.pt
+**.pyc
+/static/files/*
