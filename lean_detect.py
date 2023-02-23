@@ -91,7 +91,7 @@ class UseModel:
                         #have = False
                         pass
                     else:
-                        if ((int((xyxy[3] - xyxy[1])) >= 300 and int((xyxy[2] - xyxy[0])) >= 300)) and (int(xyxy[3]) >= 600 and int(xyxy[3]) <= 900):
+                        if ((int((xyxy[3] - xyxy[1])) >= 300 and int((xyxy[2] - xyxy[0])) >= 300)) and (int(xyxy[3]) >= 500 and int(xyxy[3]) <= 900):
                             do_function(xyxy, im0, conf, cls)
                             have = True
                     

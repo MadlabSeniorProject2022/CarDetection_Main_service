@@ -4,3 +4,4 @@
 /clips/*
 *.pt
 **.pyc
+/static/files/*

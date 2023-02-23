@@ -15,7 +15,7 @@ def get_lasted ():
 def get_byid (id):
     return mycol.find_one(ObjectId(id))
 
-def update_data (make: str, model: str, type: str, license_num: str, color: str, path: str, lp_path: str, car_path: str):
+def update_data (make: str, model: str, type: str, license_num: str, color: str, path: str, lp_path: str, car_path: str, time: int):
     new_data = {
         "make": make,
         "model": model,
@@ -24,7 +24,8 @@ def update_data (make: str, model: str, type: str, license_num: str, color: str,
         "color": color,
         "path": path,
         "lp_path": lp_path,
-        "car_path": car_path
+        "car_path": car_path,
+        "time": time
     }
     x = mycol.insert_one(new_data)
     print(x)

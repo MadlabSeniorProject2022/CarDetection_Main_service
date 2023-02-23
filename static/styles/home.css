@@ -43,3 +43,14 @@ body {
 img {
   border-radius: 10px !important;
 }
+
+.upload-input {
+  padding: 5px;
+}
+
+.upload-input::file-selector-button {
+  background-color: black;
+  color: white;
+  border-style: none !important;
+  border-radius: 100px !important;
+}

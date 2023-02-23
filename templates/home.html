@@ -46,9 +46,13 @@
           </div>
       </div>
     </div>
-    <div class="container">
-        <a href="/upload" ><button class="primary-button"> Upload</button></a>
-      </div>
+    <div class="container white-box" style="height: 100px;">
+      <form action="/uploaded" method="post" enctype="multipart/form-data">
+        <input class="upload-input" type="file" name="file" />
+        <input class="table-button" type="submit" value="Upload" />
+        <p>* สำหรับเว็บเดโม่ แนะนำให้ใช้เฉพาะการอัพโหลดภาพนิ่งเท่านั้น</p>
+      </form>
+    </div>
     <div class="container white-box fix-box">
       <h2>Lasted</h2>
       <table class="table">
