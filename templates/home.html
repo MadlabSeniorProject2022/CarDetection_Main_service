@@ -29,6 +29,11 @@
                   รุ่น : <h3>{{show.model}}</h3>
                   ทะเบียน: <h3>{{show.license_num}}</h3>
                   สี: <h3>{{show.color}}</h3>
+                  เพิ่มเมื่อ: <h3>
+                    <script>
+                      var datetime = new Date(Number("{{show.time}}"));  
+                      document.write(datetime.toLocaleString()); 
+                    </script></h3>
                 </div>
                 <div class="col">
                   <img src="{{ show.car_path }}" width="100%"/>
@@ -46,11 +51,11 @@
           </div>
       </div>
     </div>
-    <div class="container white-box" style="height: 100px;">
+    <div class="container white-box-no-scroll">
       <form action="/uploaded" method="post" enctype="multipart/form-data">
         <input class="upload-input" type="file" name="file" />
         <input class="table-button" type="submit" value="Upload" />
-        <p>* สำหรับเว็บเดโม่ แนะนำให้ใช้เฉพาะการอัพโหลดภาพนิ่งเท่านั้น</p>
+        <p style="margin: 0;">* สำหรับเว็บเดโม่ แนะนำให้ใช้เฉพาะการอัพโหลดภาพนิ่งเท่านั้น</p>
       </form>
     </div>
     <div class="container white-box fix-box">
