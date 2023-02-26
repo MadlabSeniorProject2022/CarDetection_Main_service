@@ -30,8 +30,10 @@ def get_meta(img: cv2.Mat):
     image_data = cv2.imencode('.jpg', img)[1].tobytes()
     urls = [
         
-        "https://72c4-34-143-252-179.ngrok.io/useColor",
-        "https://52c7-35-247-181-246.ngrok.io/predict"
+        "https://72c4-34-143-252-179.ngrok.io/useColor", #Color
+        "https://52c7-35-247-181-246.ngrok.io/predict", #Model
+        "https://8fcb-35-193-242-237.ngrok.io/predict" #Plate
+
     ]
 
     def request_post(url, data):
@@ -41,7 +43,11 @@ def get_meta(img: cv2.Mat):
         res = [executor.submit(request_post, url, image_data) for url in urls]
         concurrent.futures.wait(res)
 
-    return {"color": res[0].result()["predicted"], "model": res[1].result()["predicted"]}
+    return {
+        "color": res[0].result()["predicted"], 
+        "model": res[1].result()["predicted"], 
+        "plate_num": res[2].result()["plate_num"],
+        "plate_url": res[2].result()["plate_url"] }
 
 
 # Push Image to Google Cloud Storage
@@ -86,7 +92,7 @@ def detection_tasks (coor, img, conf, cls):
     cv2.imwrite(f"./runs/exp/{current_time}-crop.jpg", crop_img)
     crop_img_path = cloud_image('images-bucks', f"./runs/exp/{current_time}-crop.jpg", f'{current_time}-crop.jpg')
 
-    db.update_data(car_detail["make"], car_detail["model"], car_detail["class"], "Unknown", meta["color"], origin_img_path, None, crop_img_path, current_time)
+    db.update_data(car_detail["make"], car_detail["model"], car_detail["class"], meta["plate_num"], meta["color"], origin_img_path, meta["plate_url"], crop_img_path, current_time)
 
 def detect_flow (source):
     vehicle_detect_model.detect(source, do_function=detection_tasks)
