@@ -39,7 +39,7 @@
                   <img src="{{ show.car_path }}" width="100%"/>
                   {% block content %}
                   {% if show.lp_path %}
-                  <img src="{{ url_for('static', filename=(show.lp_path)[6:]) }}" width="100%"/>
+                  <img src="{{show.lp_path}}" width="100%"/>
                   {% else %}
                   <div class="mock-sm"></div>
                   {% endif %}
