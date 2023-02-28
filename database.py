@@ -7,7 +7,7 @@ mydb = myclient["CDT"]
 mycol = mydb["CDT"]
 
 def get_list_data ():
-    return mycol.find()
+    return mycol.find({}, sort=[( '_id', pymongo.DESCENDING )])
 
 def get_lasted ():
     return mycol.find_one({}, sort=[( '_id', pymongo.DESCENDING )])
