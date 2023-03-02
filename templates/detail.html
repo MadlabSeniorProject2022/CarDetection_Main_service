@@ -13,22 +13,7 @@
     <link href="{{ url_for('static', filename='styles/home.css') }}" rel="stylesheet" type="text/css">
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">
-          <img src="{{ url_for('static', filename='elements/lablogo.jpg') }}" width="80" height="30" class="d-inline-block align-top" alt="">
-          Car Recognition Algorithm Project Demo
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">หน้าแรก</a>
-            <a class="nav-item nav-link" href="#">รายการตรวจสอบสำเร็จ</a>
-            <a class="nav-item nav-link" href="#">รายการรอตรวจสอบ</a>
-          </div>
-        </div>
-      </nav>
+    
       <div class="container">
         <div class="row align-items-start">
           <div class="col">
@@ -89,36 +74,11 @@
         </thead>
         <tbody>
           {% for car in table %}
-          <tr>
-            <td>
-              {% if car.real_make %}
-              <p>{{car.real_make}}</p>
-              {% else %}
-              <p>{{car.make}}</p>
-              {% endif %}
-            </td>
-            <td>
-              {% if car.real_model %}
-              <p>{{car.real_model}}</p>
-              {% else %}
-              <p>{{car.model}}</p>
-              {% endif %}
-              
-            </td>
-            <td>
-              {% if car.real_plate %}
-              <p>{{car.real_plate}}</p>
-              {% else %}
-              <p>{{car.license_num}}</p>
-              {% endif %}
-            </td>
-            <td>
-              {% if car.real_color %}
-              <p>{{car.real_color}}</p>
-              {% else %}
-              <p>{{car.color}}</p>
-              {% endif %}
-            </td>
+          <tr">
+            <td>{{car.make}}</td>
+            <td>{{car.model}}</td>
+            <td>{{car.license_num}}</td>
+            <td>{{car.color}}</td>
             <td><script>
               var datetime = new Date(Number("{{car.time}}"));  
               document.write(datetime.toLocaleString()); 
@@ -126,10 +86,6 @@
             <td>
               {% if car.status == 'pending' %}
               <span class="badge bg-warning text-dark">รอตรวจสอบ</span>
-              {% elif car.status == 'success'%}
-              <span class="badge bg-success text-light">ตรวจสอบแล้ว</span>
-              {% elif car.status == 'bad_cond'%}
-              <span class="badge bg-danger text-light">เงื่อนไขไม่สมบูรณ์</span>
               {% else %}
               <p>-</p>
               {% endif %}

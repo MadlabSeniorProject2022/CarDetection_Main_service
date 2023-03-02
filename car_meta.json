@@ -2,86 +2,103 @@
   "acv40": {
     "make": "Toyota",
     "model": "Camry",
-    "class": "Mid-size"
+    "class": "Mid-size",
+    "code": "acv40"
   },
   "acv70": {
     "make": "Toyota",
     "model": "Camry",
-    "class": "Mid-size"
+    "class": "Mid-size",
+    "code": "acv70"
   },
   "city_jimmy": {
     "make": "Honda",
     "model": "City",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "gm2"
   },
   "city_mawin": {
     "make": "Honda",
     "model": "City",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "gm4"
   },
   "civic_fc": {
     "make": "Honda",
     "model": "Civic",
-    "class": "Compact"
+    "class": "Compact",
+    "code": "fc"
   },
   "corolla_cross": {
     "make": "Toyota",
     "model": "Corolla Cross",
-    "class": "Compact SUV"
+    "class": "Compact SUV",
+    "code": "e210x"
   },
   "e150": {
     "make": "Toyota",
     "model": "Corolla Altis",
-    "class": "Compact"
+    "class": "Compact",
+    "code": "e120"
   },
   "e160": {
     "make": "Toyota",
     "model": "Corolla Altis",
-    "class": "Compact"
+    "class": "Compact",
+    "code": "e180"
   },
   "e160b": {
     "make": "Toyota",
     "model": "Corolla Altis",
-    "class": "Compact"
+    "class": "Compact",
+    "code": "e170"
   },
   "e170": {
     "make": "Toyota",
     "model": "Corolla Altis",
-    "class": "Compact"
+    "class": "Compact",
+    "code": "e210"
   },
   "Mazda2": {
     "make": "Mazda",
     "model": "Mazda 2",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "DL"
   },
   "revo": {
     "make": "Toyota",
     "model": "Hilux Revo",
-    "class": "Pickup"
+    "class": "Pickup",
+    "code": "an120"
   },
   "rt50": {
     "make": "Isuzu",
     "model": "D-max",
-    "class": "Pickup"
+    "class": "Pickup",
+    "code": "rt50"
   },
   "swiift_ajp": {
     "make": "Suzuki",
     "model": "Swift",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "YC"
   },
   "yaris_mama": {
     "make": "Toyota",
     "model": "Yaris",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "xp90"
   },
   "yaris_old": {
     "make": "Toyota",
     "model": "Yaris",
-    "class": "Eco"
+    "class": "Eco",
+    "code": "xp100"
   },
   "unknown": {
-    "make": "Unknown",
-    "model": "Unknown",
-    "class": "Unknown"
+    "make": "ไม่สามารถระบุแบรนด์",
+    "model": "ไม่สามารถระบุรุ่น",
+    "class": "ไม่สามารถระบุรุ่น",
+    "code" : "00"
   }
 }
