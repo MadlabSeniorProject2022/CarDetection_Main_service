@@ -9,6 +9,17 @@ mycol = mydb["CDT"]
 def get_list_data (query = {}):
     return mycol.find(query, sort=[( '_id', pymongo.DESCENDING )])
 
+def get_list_data_pagination(query = {}, limit = 100, page = 1, sort='_id', arrange = pymongo.DESCENDING):
+    size = mycol.count_documents(query)//limit
+    if (mycol.count_documents(query)%limit) > 0:
+        size += 1
+    if arrange == 'asc':
+        arrange = pymongo.ASCENDING
+    else:
+        arrange = pymongo.DESCENDING
+    data = mycol.find(query, sort=[( sort, arrange )]).skip(page * limit).limit(limit)
+    return size, data
+
 def get_lasted (query = {}):
     return mycol.find_one(query, sort=[( '_id', pymongo.DESCENDING )])
 

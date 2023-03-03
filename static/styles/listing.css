@@ -22,15 +22,6 @@ body {
   background-color: white !important;
   padding: 10px !important;
   border-radius: 20px !important;
-  margin-top: 10px;
-  height: 380px;
-}
-
-.white-box-no-scroll {
-  margin-top: 10px;
-  background-color: white !important;
-  padding: 10px !important;
-  border-radius: 20px !important;
 }
 
 .fix-box {
@@ -43,8 +34,7 @@ body {
   color: white;
   border-radius: 10px !important;
   width: 100%;
-  padding-block: 70px;
-  text-align: center;
+  height: 150px;
 }
 
 img {
@@ -60,9 +50,4 @@ img {
   color: white;
   border-style: none !important;
   border-radius: 100px !important;
-}
-
-.image-col {
-  height: 360px;
-  overflow: scroll;
 }

@@ -1,0 +1,15 @@
+.content {
+  margin-top: 60px;
+}
+
+.scroll {
+  overflow: scroll !important;
+}
+
+.page-item {
+  color: black !important;
+}
+
+.img-item {
+  padding: 4px;
+}
