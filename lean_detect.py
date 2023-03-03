@@ -39,7 +39,7 @@ class UseModel:
         
         self.model = model
 
-    def detect (self, source, do_function = None):
+    def detect (self, source, do_function = None, minimum_size = 300, detect_range = [500, 900]):
         old_img_w = old_img_h = self.norm_size
         old_img_b = 1
         dataset = LoadImages(source, img_size=self.norm_size, stride=self.stride)
@@ -91,7 +91,7 @@ class UseModel:
                         #have = False
                         pass
                     else:
-                        if ((int((xyxy[3] - xyxy[1])) >= 300 and int((xyxy[2] - xyxy[0])) >= 300)) and (int(xyxy[3]) >= 500 and int(xyxy[3]) <= 900):
+                        if ((int((xyxy[3] - xyxy[1])) >= minimum_size and int((xyxy[2] - xyxy[0])) >= minimum_size)) and (int(xyxy[3]) >= detect_range[0] and int(xyxy[3]) <= detect_range[1]):
                             do_function(xyxy, im0, conf, cls)
                             have = True
                     
