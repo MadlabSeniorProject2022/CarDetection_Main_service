@@ -23,7 +23,7 @@ def process():
 def show(id):
     if db.get_byid(id)["status"] == 'pending':
         return redirect(f"/edit/{id}")
-    return render_template("home.html", table = list(db.get_list_data()), show = db.get_byid(id))
+    return render_template("detail.html", table = list(db.get_list_data({"status": "success"})), show = db.get_byid(id))
 
 @app.route("/edit/<id>", methods = ['POST'])
 def edit_back(id):
@@ -60,7 +60,27 @@ def pending_list(page, limit):
     if (int(page) > pages) and (pages != 0):
         return redirect(f"/pending/page/{pages}/limit/10")
     print(pages, data)
-    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "pending")
+    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "pending", search_action = "pending/search", keyword="", search = True)
+
+@app.route("/pending/search", methods = ['POST'])
+def pending_on_search():
+    body = request.form
+    search_type = str(body["type"])
+    keyword = str(body["keyword"])
+    return redirect(f"/pending/type/{search_type}/keyword/{keyword}/page/1/limit/10")
+
+@app.route("/pending/type/<type>/keyword/<keyword>/page/<page>/limit/<limit>")
+def pending_list_search(page, limit, type, keyword):
+    if (int(page) < 1):
+        return redirect(f"/pending/type/{type}/keyword/{keyword}/page/1/limit/10")
+    if not keyword or not type:
+        return redirect("/pending/page/1/limit/10")
+    print(page, limit)
+    pages, data = db.get_list_data_pagination(query={'status': 'pending', f"{type}": keyword}, page=int(page)-1, limit=int(limit))
+    if (int(page) > pages) and (pages != 0) :
+        return redirect(f"/pending/page/{pages}/limit/10")
+    print(pages, data)
+    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = f"pending/type/{type}/keyword/{keyword}", search_action = "pending/search", keyword=keyword, search = True)
 
 @app.route("/success")
 def success():
@@ -75,7 +95,27 @@ def success_list(page, limit):
     if (int(page) > pages) and (pages != 0) :
         return redirect(f"/success/page/{pages}/limit/10")
     print(pages, data)
-    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "success")
+    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "success", search_action = "success/search", keyword="", search = True)
+
+@app.route("/success/search", methods = ['POST'])
+def success_on_search():
+    body = request.form
+    search_type = str(body["type"])
+    keyword = str(body["keyword"])
+    return redirect(f"/success/type/{search_type}/keyword/{keyword}/page/1/limit/10")
+
+@app.route("/success/type/<type>/keyword/<keyword>/page/<page>/limit/<limit>")
+def success_list_search(page, limit, type, keyword):
+    if (int(page) < 1):
+        return redirect(f"/success/type/{type}/keyword/{keyword}/page/1/limit/10")
+    if not keyword or not type :
+        return redirect("/success/page/1/limit/10")
+    print(page, limit)
+    pages, data = db.get_list_data_pagination(query={'status': 'success', f"real_{type}": keyword}, page=int(page)-1, limit=int(limit))
+    if (int(page) > pages) and (pages != 0) :
+        return redirect(f"/success/page/{pages}/limit/10")
+    print(pages, data)
+    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = f"success/type/{type}/keyword/{keyword}", search_action = "success/search", keyword=keyword, search = True)
 
 @app.route("/bad")
 def bad():
@@ -90,7 +130,7 @@ def bad_list(page, limit):
     if (int(page) > pages) and (pages != 0) :
         return redirect(f"/bad/page/{pages}/limit/10")
     print(pages, data)
-    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "bad")
+    return render_template("listing.html", table = list(data), pages = int(pages), current = int(page), limit = int(limit), root = "bad", search = False)
 
 @app.route('/')
 def home():

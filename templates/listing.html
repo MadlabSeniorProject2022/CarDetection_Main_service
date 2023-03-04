@@ -32,6 +32,23 @@
         </div>
       </nav>
     <div class="content">
+      {% if search %}
+      <div class="container">
+        <div class="white-box">
+          <form action="/{{search_action}}" method="post" enctype="multipart/form-data">
+          <div class="input-group">
+            <select name="type" class="form-select md-4" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <option value="" disabled selected>เลือกประเภทการค้นหา</option>
+              <option value="make">แบรนด์</option>
+              <option value="model">รุ่น</option>
+            </select>
+            <input type="text" name="keyword" aria-label="keyword" class="form-control" id="keyword" placeholder="คำค้นหา" value="{{keyword}}">
+            <input class="btn btn-dark" type="submit" value="Search" />
+          </div>
+          </form>
+        </div>
+      </div>
+      {% endif %}
       <div class="container">
         <div class="white-box">
           <table class="table">

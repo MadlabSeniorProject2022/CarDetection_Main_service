@@ -20,7 +20,7 @@ body {
 
 .white-box {
   background-color: white !important;
-  padding: 10px !important;
+  padding: 16px !important;
   border-radius: 20px !important;
   margin-top: 10px;
   height: 380px;
@@ -29,7 +29,7 @@ body {
 .white-box-no-scroll {
   margin-top: 10px;
   background-color: white !important;
-  padding: 10px !important;
+  padding: 16px !important;
   border-radius: 20px !important;
 }
 

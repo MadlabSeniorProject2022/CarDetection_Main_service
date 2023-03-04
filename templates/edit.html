@@ -166,11 +166,15 @@
                     <td>
                       {% if car.status == 'pending' %}
                       <span class="badge bg-warning text-dark">รอตรวจสอบ</span>
+                      {% elif car.status == 'success'%}
+                      <span class="badge bg-success text-light">ตรวจสอบแล้ว</span>
+                      {% elif car.status == 'bad_cond'%}
+                      <span class="badge bg-danger text-light">เงื่อนไขไม่สมบูรณ์</span>
                       {% else %}
                       <p>-</p>
                       {% endif %}
                     </td>
-                    <td><a href="/show/{{car._id}}" ><button type="button" class="table-button">View</button></a></td>
+                    <td><a href="/show/{{car._id}}" ><button type="button" class="btn btn-dark">View</button></a></td>
                   </tr>
                   {% endfor %}
                 </tbody>

@@ -20,8 +20,9 @@ body {
 
 .white-box {
   background-color: white !important;
-  padding: 10px !important;
+  padding: 14px !important;
   border-radius: 20px !important;
+  margin-top: 10px;
 }
 
 .fix-box {
