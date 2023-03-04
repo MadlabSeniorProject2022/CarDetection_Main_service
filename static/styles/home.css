@@ -20,17 +20,16 @@ body {
 
 .white-box {
   background-color: white !important;
-  padding: 10px !important;
+  padding: 16px !important;
   border-radius: 20px !important;
   margin-top: 10px;
   height: 380px;
-  overflow: scroll;
 }
 
 .white-box-no-scroll {
   margin-top: 10px;
   background-color: white !important;
-  padding: 10px !important;
+  padding: 16px !important;
   border-radius: 20px !important;
 }
 
@@ -41,10 +40,11 @@ body {
 
 .mock-sm {
   background-color: grey;
+  color: white;
   border-radius: 10px !important;
   width: 100%;
-  height: 150px;
-  margin-top: 50px;
+  padding-block: 70px;
+  text-align: center;
 }
 
 img {
@@ -60,4 +60,9 @@ img {
   color: white;
   border-style: none !important;
   border-radius: 100px !important;
+}
+
+.image-col {
+  height: 360px;
+  overflow: scroll;
 }

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='styles/listing.css') }}" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <img src="{{ url_for('static', filename='elements/lablogo.jpg') }}" width="80" height="30" class="d-inline-block align-top" alt="">
+          Car Recognition Algorithm Project Demo
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">หน้าแรก</a>
+            <a class="nav-item nav-link" href="/success">รายการตรวจสอบสำเร็จ</a>
+            <a class="nav-item nav-link" href="/pending">รายการรอตรวจสอบ</a>
+            <a class="nav-item nav-link" href="/bad">รายการผิดเงื่อนไข</a>
+          </div>
+        </div>
+      </nav>
+    <div class="content">
+      {% if search %}
+      <div class="container">
+        <div class="white-box">
+          <form action="/{{search_action}}" method="post" enctype="multipart/form-data">
+          <div class="input-group">
+            <select name="type" class="form-select md-4" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <option value="" disabled selected>เลือกประเภทการค้นหา</option>
+              <option value="make">แบรนด์</option>
+              <option value="model">รุ่น</option>
+            </select>
+            <input type="text" name="keyword" aria-label="keyword" class="form-control" id="keyword" placeholder="คำค้นหา" value="{{keyword}}">
+            <input class="btn btn-dark" type="submit" value="Search" />
+          </div>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      <div class="container">
+        <div class="white-box">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">แบรนด์</th>
+                <th scope="col">รุ่น</th>
+                <th scope="col">ทะเบียน</th>
+                <th scope="col">สี</th>
+                <th scope="col">เวลา</th>
+                <th scope="col">สถานะ</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for car in table %}
+              <tr>
+                <td>
+                  {% if car.real_make %}
+                  <p>{{car.real_make}}</p>
+                  {% else %}
+                  <p>{{car.make}}</p>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if car.real_model %}
+                  <p>{{car.real_model}}</p>
+                  {% else %}
+                  <p>{{car.model}}</p>
+                  {% endif %}
+                  
+                </td>
+                <td>
+                  {% if car.real_license_num %}
+                  <p>{{car.real_license_num}}</p>
+                  {% else %}
+                  <p>{{car.license_num}}</p>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if car.real_color %}
+                  <p>{{car.real_color}}</p>
+                  {% else %}
+                  <p>{{car.color}}</p>
+                  {% endif %}
+                </td>
+                <td><script>
+                  var datetime = new Date(Number("{{car.time}}"));  
+                  document.write(datetime.toLocaleString()); 
+                </script></td>
+                <td>
+                  {% if car.status == 'pending' %}
+                  <span class="badge bg-warning text-dark">รอตรวจสอบ</span>
+                  {% elif car.status == 'success'%}
+                  <span class="badge bg-success text-light">ตรวจสอบแล้ว</span>
+                  {% elif car.status == 'bad_cond'%}
+                  <span class="badge bg-danger text-light">เงื่อนไขไม่สมบูรณ์</span>
+                  {% else %}
+                  <p>-</p>
+                  {% endif %}
+                </td>
+                <td><a href="/show/{{car._id}}" ><button class="btn btn-dark">View</button></a></td>
+              </tr>
+              {% endfor %}
+              {% set prev = current - 1 %}
+              {% set next = current + 1 %}
+            </tbody>
+          </table>
+          <ul class="pagination justify-content-end pagination-color">
+            {% if pages != 0 and pages != 1 %}
+            <li class="page-item"><a class="page-link" href="/{{root}}/page/{{prev}}/limit/{{limit}}">Previous</a></li>
+            {% endif %}
+            {% for i in range(pages) %}
+              <li class="page-item"><a class="page-link" href="/{{root}}/page/{{i + 1}}/limit/{{limit}}">{{i + 1}}</a></li>
+            {% endfor %}
+            {% if pages != 0 and pages != 1%}
+            <li class="page-item"><a class="page-link" href="/{{root}}/page/{{next}}/limit/{{limit}}">Next</a></li>
+            {% endif %}
+          </ul>
+        </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    </script> 
+  </body>
+</html>

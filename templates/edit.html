@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link href="{{ url_for('static', filename='styles/edit.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <img src="{{ url_for('static', filename='elements/lablogo.jpg') }}" width="80" height="30" class="d-inline-block align-top" alt="">
+          Car Recognition Algorithm Project Demo
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">หน้าแรก</a>
+            <a class="nav-item nav-link" href="/success">รายการตรวจสอบสำเร็จ</a>
+            <a class="nav-item nav-link" href="/pending">รายการรอตรวจสอบ</a>
+            <a class="nav-item nav-link" href="/bad">รายการผิดเงื่อนไข</a>
+          </div>
+        </div>
+      </nav>
+      <div class="content">
+      <form action="/edit/{{show._id}}" method="post" enctype="multipart/form-data">
+      <div class="container">
+        <div class="row align-items-start">
+          <div class="col-4">
+            <div class="container white-box">
+              
+              <img class="img-item" src="{{ show.car_path }}" width="100%"/>
+              {% if show.lp_path %}
+              <img class="img-item" src="{{show.lp_path}}" width="100%"/>
+              {% else %}
+              <div class="img-item mock-sm"></div>
+              {% endif %}
+                
+            </div>
+            <div class="container white-box">
+              <div class="mb-3">
+                <label for="plate" class="form-label">ทะเบียน</label>
+                <input type="text" name="plate" aria-label="Plate" class="form-control" id="plate" value={{show.license_num}}>
+              </div>
+              <div class="mb-3">
+                <label for="color" class="form-label">สี</label>
+                <input type="text" name="color" aria-label="Color" class="form-control" id="color" value={{show.color}}>
+                <div class="d-grid gap-2 d-md-block">
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Black')">Black</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Blue')">Blue</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Brown')">Brown</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Bronze')">Bronze</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Green')">Green</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Grey')">Grey</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('TAXI')">TAXI</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Orange')">Orange</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Red')">Red</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('White')">White</button>
+                  <button class="btn btn-dark" type="button" onclick="selectColor('Yellow')">Yellow</button>
+                </div>
+              <div class="mb-3">
+                <label for="time" class="form-label">เพิ่มเมื่อ: </label> 
+                <h3>
+                  <script>
+                    var datetime = new Date(Number("{{show.time}}"));  
+                    document.write(datetime.toLocaleString()); 
+                  </script>
+                </h3>
+              </div>
+                      
+                  
+                      <input class="btn btn-dark" type="submit" value="ยืนยัน" />
+                      <input class="btn btn-danger" type="submit" formaction="/markbad/{{show._id}}" formmethod="post" value="เงื่อนไขไม่สมบูรณ์" />
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="container white-box">
+              <img class="img-item" src="{{ show.path }}" width="100%"/>
+              <script>
+                const autofillSuggest = (make, model) => {
+                  document.getElementById('make').value=make
+                  document.getElementById('model').value=model
+                }
+                const selectColor = (color) => {
+                  document.getElementById('color').value=color
+                }
+              </script>
+              
+                    <div class="mb-3">
+                      <label for="make" class="form-label">แบรนด์</label>
+                      <input type="text" name="make" aria-label="Make" class="form-control" id="make" value="{{show.make}}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="model" class="form-label">รุ่น</label>
+                      <input type="text" name="model" aria-label="Model" class="form-control" id="model" value="{{show.model}}">
+                    </div>
+                    <div class="mb-3"></div>
+                    <div class="mb-3">
+                      <label for="model" class="form-label">แนะนำโดยโมเดล:</label>
+                      <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">แบรนด์</th>
+                              <th scope="col">รุ่น</th>
+                              <th scope="col">รหัสตัวถัง</th>
+                              <th scope="col">ความน่าจะเป็น</th>
+                              <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for poss in show.possible %}
+                            <tr>
+                                <td>{{poss.make}}</td>
+                                <td>{{poss.model}}</td>
+                                <td>{{poss.code}}</td>
+                                <td>{{poss.conf}}</td>
+                                <td><button class="btn btn-dark" type="button" onclick="autofillSuggest('{{poss.make}}', '{{poss.model}}')">เลือก</button></td>  
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                      </table>
+                      
+                    </div>
+                    
+              
+            </div>
+            
+          </div>
+        </div>
+        <div class="container white-box fix-box">
+              <h4>ข้อมูลรอการตรวจสอบ</h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">แบรนด์</th>
+                    <th scope="col">รุ่น</th>
+                    <th scope="col">ทะเบียน</th>
+                    <th scope="col">สี</th>
+                    <th scope="col">เวลา</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for car in table %}
+                  <tr>
+                    <td>{{car.make}}</td>
+                    <td>{{car.model}}</td>
+                    <td>{{car.license_num}}</td>
+                    <td>{{car.color}}</td>
+                    <td><script>
+                      var datetime = new Date(Number("{{car.time}}"));  
+                      document.write(datetime.toLocaleString()); 
+                    </script></td>
+                    <td>
+                      {% if car.status == 'pending' %}
+                      <span class="badge bg-warning text-dark">รอตรวจสอบ</span>
+                      {% elif car.status == 'success'%}
+                      <span class="badge bg-success text-light">ตรวจสอบแล้ว</span>
+                      {% elif car.status == 'bad_cond'%}
+                      <span class="badge bg-danger text-light">เงื่อนไขไม่สมบูรณ์</span>
+                      {% else %}
+                      <p>-</p>
+                      {% endif %}
+                    </td>
+                    <td><a href="/show/{{car._id}}" ><button type="button" class="btn btn-dark">View</button></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+    </form>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    </script> 
+  </body>
+</html>

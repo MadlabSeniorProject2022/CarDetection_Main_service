@@ -45,7 +45,8 @@ def get_meta(img: cv2.Mat):
 
     return {
         "color": res[0].result()["predicted"], 
-        "model": res[1].result()["predicted"], 
+        "model": res[1].result()["predicted"],
+        "possible": res[1].result()["possible"], 
         "plate_num": res[2].result()["plate_num"],
         "plate_url": res[2].result()["plate_url"] }
 
@@ -79,21 +80,22 @@ def detection_tasks (coor, img, conf, cls):
     print(current_time)
     if not os.path.exists("./runs/"):
         os.makedirs("./runs/")
-    Path("./runs/exp/").mkdir(parents=True, exist_ok=True)
+    Path("./runs/demo/").mkdir(parents=True, exist_ok=True)
     crop_img = img[ int(coor[1]) : int(coor[3]), int(coor[0]): int(coor[2])]
     #result = cv2.resize(crop_img, (640, 640))
     #result = cv2.cvtColor(result , cv2.COLOR_RGB2GRAY)
     meta = get_meta(crop_img)
     print(meta)
     car_detail = car_meta[meta["model"]]
+    possible = [{**car_meta[pos["class"]], "conf" : pos["conf"]} for pos in meta["possible"]]
     print(car_detail)
-    cv2.imwrite(f"./runs/exp/{current_time}.jpg", img)
-    origin_img_path = cloud_image('images-bucks', f"./runs/exp/{current_time}.jpg", f'{current_time}-origin.jpg')
-    cv2.imwrite(f"./runs/exp/{current_time}-crop.jpg", crop_img)
-    crop_img_path = cloud_image('images-bucks', f"./runs/exp/{current_time}-crop.jpg", f'{current_time}-crop.jpg')
+    cv2.imwrite(f"./runs/demo/{current_time}.jpg", img)
+    origin_img_path = cloud_image('images-bucks', f"./runs/demo/{current_time}.jpg", f'{current_time}-origin.jpg')
+    cv2.imwrite(f"./runs/demo/{current_time}-crop.jpg", crop_img)
+    crop_img_path = cloud_image('images-bucks', f"./runs/demo/{current_time}-crop.jpg", f'{current_time}-crop.jpg')
 
-    db.update_data(car_detail["make"], car_detail["model"], car_detail["class"], meta["plate_num"], meta["color"], origin_img_path, meta["plate_url"], crop_img_path, current_time)
+    db.update_data(car_detail["make"], car_detail["model"], car_detail["class"], meta["plate_num"], meta["color"], origin_img_path, meta["plate_url"], crop_img_path, current_time, possible)
 
-def detect_flow (source):
-    vehicle_detect_model.detect(source, do_function=detection_tasks)
+def detect_flow (source, minimum_size = 300, detect_range = [500, 900]):
+    vehicle_detect_model.detect(source, do_function=detection_tasks, minimum_size=minimum_size, detect_range=detect_range)
     
