@@ -76,7 +76,7 @@ def pending_list_search(page, limit, type, keyword):
     if not keyword or not type:
         return redirect("/pending/page/1/limit/10")
     print(page, limit)
-    pages, data = db.get_list_data_pagination(query={'status': 'pending', f"{type}": keyword}, page=int(page)-1, limit=int(limit))
+    pages, data = db.get_list_data_pagination(query={'status': 'pending', f"{type}": {"$regex": keyword}}, page=int(page)-1, limit=int(limit))
     if (int(page) > pages) and (pages != 0) :
         return redirect(f"/pending/page/{pages}/limit/10")
     print(pages, data)
@@ -111,7 +111,7 @@ def success_list_search(page, limit, type, keyword):
     if not keyword or not type :
         return redirect("/success/page/1/limit/10")
     print(page, limit)
-    pages, data = db.get_list_data_pagination(query={'status': 'success', f"real_{type}": keyword}, page=int(page)-1, limit=int(limit))
+    pages, data = db.get_list_data_pagination(query={'status': 'success', f"real_{type}": {"$regex": keyword}}, page=int(page)-1, limit=int(limit))
     if (int(page) > pages) and (pages != 0) :
         return redirect(f"/success/page/{pages}/limit/10")
     print(pages, data)
