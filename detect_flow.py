@@ -30,9 +30,9 @@ def get_meta(img: cv2.Mat):
     image_data = cv2.imencode('.jpg', img)[1].tobytes()
     urls = [
         
-        "https://72c4-34-143-252-179.ngrok.io/useColor", #Color
-        "https://52c7-35-247-181-246.ngrok.io/predict", #Model
-        "https://8fcb-35-193-242-237.ngrok.io/predict" #Plate
+        "https://0a8f-35-186-146-221.ngrok.io/useColor", #Color
+        "https://57ec-35-247-164-167.ngrok.io/predict", #Model
+        "https://e02b-34-28-10-156.ngrok.io/predict" #Plate
 
     ]
 
