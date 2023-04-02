@@ -11,7 +11,7 @@ import database as db
 
 from google.cloud import storage
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'./carrgclassification-857e3c375cdd.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'path_for_google_cloud_connection_json'
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 from lean_detect import UseModel
@@ -30,9 +30,9 @@ def get_meta(img: cv2.Mat):
     image_data = cv2.imencode('.jpg', img)[1].tobytes()
     urls = [
         
-        "https://8426-34-142-144-78.ngrok.io/useColor", #Color
-        "https://9a43-34-124-248-125.ngrok.io/predict", #Model
-        "https://cb47-34-30-121-207.ngrok.io/predict" #Plate
+        "url_for_color_recognition_API", #Color
+        "url_for_car_model_recognition_API", #Model
+        "url_for_license_plate_reader_API" #Plate
 
     ]
 
