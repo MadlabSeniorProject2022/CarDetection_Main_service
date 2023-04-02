@@ -1,4 +1,11 @@
-# Lean Detector
+# Car Recognition 
+
+## Addon for Car Recognition
+- Anti duplicate car detect
+- Call Apis to recognition cars 
+- Add Web-application as UI
+
+## Lean Detector
 
 ** Original source code for yolov7 from https://github.com/WongKinYiu/yolov7
 
