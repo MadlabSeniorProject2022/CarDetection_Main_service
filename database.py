@@ -1,7 +1,7 @@
 import pymongo
 from bson.objectid import ObjectId
 
-myclient = pymongo.MongoClient("mongodb+srv://thanick_ku:kukuru2000@cluster0.yevnu7y.mongodb.net/?retryWrites=true&w=majority")
+myclient = pymongo.MongoClient("mongodb_client_srv")
 
 mydb = myclient["CDT"]
 mycol = mydb["CDT"]
